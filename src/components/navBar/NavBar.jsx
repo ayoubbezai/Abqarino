@@ -2,6 +2,8 @@ import { Link } from "react-router-dom"
 import { useState, useContext } from "react"
 import { LanguageContext } from "../../context/LanguageContext"
 import logo from "../../assets/logo.png"
+import ukFlag from "../../assets/flags/gb.png"
+import saFlag from "../../assets/flags/sa.png"
 
 const NavBar = () => {
     const { language, setLanguage } = useContext(LanguageContext)
@@ -54,8 +56,13 @@ const NavBar = () => {
                         <div className="relative">
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
-                                className="text-white hover:text-blue-light text-sm font-medium transition-colors"
+                                className="text-white hover:text-blue-light text-sm font-medium transition-colors flex items-center gap-2"
                             >
+                                <img
+                                    src={language === 'ar' ? saFlag : ukFlag}
+                                    alt={language === 'ar' ? 'SA' : 'UK'}
+                                    className="w-5 h-3 object-cover"
+                                />
                                 {language === 'ar' ? 'عربي' : 'English'} ▼
                             </button>
 
@@ -63,14 +70,16 @@ const NavBar = () => {
                                 <div className="absolute mt-2 py-2 w-32 bg-white rounded-md shadow-lg">
                                     <button
                                         onClick={() => toggleLanguage('ar')}
-                                        className="block w-full text-right px-4 py-2 text-sm text-gray-700 hover:bg-blue-light hover:text-white"
+                                        className="block w-full text-right px-4 py-2 text-sm text-gray-700 hover:bg-blue-light hover:text-white flex items-center gap-2"
                                     >
+                                        <img src={saFlag} alt="SA" className="w-5 h-3 object-cover" />
                                         عربي
                                     </button>
                                     <button
                                         onClick={() => toggleLanguage('en')}
-                                        className="block w-full text-right px-4 py-2 text-sm text-gray-700 hover:bg-blue-light hover:text-white"
+                                        className="block w-full text-right px-4 py-2 text-sm text-gray-700 hover:bg-blue-light hover:text-white flex items-center gap-2"
                                     >
+                                        <img src={ukFlag} alt="UK" className="w-5 h-3 object-cover" />
                                         English
                                     </button>
                                 </div>
