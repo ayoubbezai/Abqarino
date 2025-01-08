@@ -3,6 +3,7 @@ import { LanguageContext } from '../../../context/LanguageContext';
 import Button from '../../common/Button';
 import Alert from '../../common/Alert';
 import { socialLinks } from '../../../data';
+import { useEffect } from 'react';
 
 const Form = () => {
 
@@ -98,9 +99,6 @@ const Form = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-
-
-
         setAlert({
             show: true,
             type: 'info',
@@ -181,8 +179,26 @@ const Form = () => {
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+
+    const isFormValid = () => {
+
+        return (
+            formData.fullName.trim() !== "" &&
+            formData.email.trim() !== "" &&
+            formData.phoneNumber.length >= 6 &&
+            formData.service !== "" &&
+            // Add checkbox group validations
+            formData.selectedOptions1.length > 0 && // Goal
+            formData.selectedOptions2.length > 0 && // Curriculum
+            formData.selectedOptions3.length > 0    // Subjects
+        );
+    };
+
+
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault()
 
         // Check required text fields
         if (!formData.fullName.trim()) {
@@ -223,23 +239,14 @@ const Form = () => {
 
         // If all validations pass, proceed with form submission
         onSubmit(e);
+
     };
 
     // Add validation function
-    const isFormValid = () => {
-        return (
-            formData.fullName.trim() !== "" &&
-            formData.email.trim() !== "" &&
-            formData.phoneNumber.length >= 6 &&
-            formData.service !== "" &&
-            // Add checkbox group validations
-            formData.selectedOptions1.length > 0 && // Goal
-            formData.selectedOptions2.length > 0 && // Curriculum
-            formData.selectedOptions3.length > 0    // Subjects
-        );
-    };
+
 
     return (
+
         <div className="bg-blue-light/5 py-8">
             <div className="container mx-auto px-4 max-w-6xl">
                 {/* Title Section */}
@@ -439,6 +446,7 @@ const Form = () => {
                                                 type="email"
                                                 id="email"
                                                 name="email"
+                                                value={formData.email}
                                                 onChange={handleChange}
                                                 className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
                                                 required
@@ -472,13 +480,11 @@ const Form = () => {
                         </div>
 
                         {/* Submit Button */}
-                        <div className="flex justify-center p-6">
+                        <div className={`flex justify-center p-6 ${!isFormValid() ? 'opacity-50' : ''}`}>
                             <Button
+                                id="btn1"
                                 type="submit"
                                 disabled={!isFormValid()}
-                                className={`text-sm px-10 ${!isFormValid() 
-                                    ? 'bg-gray-300 cursor-not-allowed' 
-                                    : 'bg-blue-light hover:bg-blue-bright/90'}`}
                             >
                                 {language === 'ar' ? 'إرسال' : 'Submit'}
                             </Button>
