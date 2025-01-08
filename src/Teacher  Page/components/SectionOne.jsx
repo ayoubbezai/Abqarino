@@ -6,7 +6,7 @@ import sectionOneImage from "../../assets/logo/logo2.png"
 const SectionOne = () => {
     const { language } = useContext(LanguageContext)
     return (
-        <div className="flex flex-col mt-12 ">
+        <div className="flex flex-col mt-12 mb-8  ">
             <div className={`md:flex ${language === "en" && "flex-row-reverse"} justify-evenly`}>
                 <div className="flex justify-center">
                     <img
@@ -23,7 +23,7 @@ const SectionOne = () => {
                         {sectionOnePartTwo.description[language]}
                     </p>
 
-                    
+
                 </div>
             </div>
         </div>
