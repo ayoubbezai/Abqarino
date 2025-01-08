@@ -8,7 +8,7 @@ const Navbar2 = () => {
     const { language, setLanguage } = useContext(LanguageContext)
     const [isOpen, setIsOpen] = useState(false)
     return (
-        <div className="flex flex-row-reverse px-8  items-center justify-between">
+        <div className="flex flex-row-reverse px-10 mt-6 items-center justify-between">
             <div className="relative">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
