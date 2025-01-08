@@ -162,7 +162,28 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Check if at least one option is selected in each group
+        // Check required text fields
+        if (!formData.fullName.trim()) {
+            alert(language === 'ar' ? 'الرجاء�دخال الاسم الكامل' : 'Please enter your full name');
+            return;
+        }
+
+        if (!formData.email.trim()) {
+            alert(language === 'ar' ? 'الرجاء�دخال البريد الإلكتروني' : 'Please enter your email');
+            return;
+        }
+
+        if (!formData.phoneNumber.trim()) {
+            alert(language === 'ar' ? 'الرجاء�دخال رقم الجوال' : 'Please enter your phone number');
+            return;
+        }
+
+        if (!formData.service) {
+            alert(language === 'ar' ? 'الرجاء اختيار ال�ف الدراسي' : 'Please select your grade');
+            return;
+        }
+
+        // Check checkbox groups
         if (formData.selectedOptions1.length === 0) {
             alert(language === 'ar' ? 'الرجاء اختيار الهدف' : 'Please select a goal');
             return;
@@ -217,28 +238,28 @@ const Form = () => {
                                             {language === 'ar' ? 'الهدف' : 'Goal'}
                                             <span className="text-red-500 ml-1">*</span>
                                         </label>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                        <div className="flex flex-wrap md:grid md:grid-cols-2 gap-3">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions1-foundation and strengthening"
+                                                    name="selectedOptions1-foundation"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions1?.includes('foundation and strengthening')}
+                                                    checked={formData.selectedOptions1?.includes('foundation')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
+                                                <span className="text-sm whitespace-nowrap">
                                                     {language === 'ar' ? 'تأسيس وتقوية' : 'Foundation and Strengthening'}
                                                 </span>
                                             </label>
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions1-curriculum follow up"
+                                                    name="selectedOptions1-followup"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions1?.includes('curriculum follow up')}
+                                                    checked={formData.selectedOptions1?.includes('followup')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
+                                                <span className="text-sm whitespace-nowrap">
                                                     {language === 'ar' ? 'متابعة للمنهج الدراسي' : 'Curriculum Follow-up'}
                                                 </span>
                                             </label>
@@ -251,28 +272,28 @@ const Form = () => {
                                             {language === 'ar' ? 'المنهج' : 'Curriculum'}
                                             <span className="text-red-500 ml-1">*</span>
                                         </label>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                        <div className="flex flex-wrap md:grid md:grid-cols-2 gap-3">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions2-Saudi"
+                                                    name="selectedOptions2-saudi"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions2?.includes('Saudi')}
+                                                    checked={formData.selectedOptions2?.includes('saudi')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
+                                                <span className="text-sm whitespace-nowrap">
                                                     {language === 'ar' ? 'سعودي' : 'Saudi'}
                                                 </span>
                                             </label>
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions2-International"
+                                                    name="selectedOptions2-international"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions2.includes('International')}
+                                                    checked={formData.selectedOptions2?.includes('international')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
+                                                <span className="text-sm whitespace-nowrap">
                                                     {language === 'ar' ? 'عالمي' : 'International'}
                                                 </span>
                                             </label>
@@ -285,41 +306,41 @@ const Form = () => {
                                             {language === 'ar' ? 'المادة' : 'Subject'}
                                             <span className="text-red-500 ml-1">*</span>
                                         </label>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                        <div className="flex flex-wrap md:grid md:grid-cols-3 gap-3">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions3-Math"
+                                                    name="selectedOptions3-math"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions3.includes('Math')}
+                                                    checked={formData.selectedOptions3?.includes('math')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
+                                                <span className="text-sm whitespace-nowrap">
                                                     {language === 'ar' ? 'رياضيات' : 'Mathematics'}
                                                 </span>
                                             </label>
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions3-Arabic"
+                                                    name="selectedOptions3-arabic"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions3.includes('Arabic')}
+                                                    checked={formData.selectedOptions3?.includes('arabic')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
-                                                    {language === 'ar' ? 'لغة عربية' : 'Arabic Language'}
+                                                <span className="text-sm whitespace-nowrap">
+                                                    {language === 'ar' ? 'لغة عربية' : 'Arabic'}
                                                 </span>
                                             </label>
-                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 flex-grow sm:flex-grow-0">
                                                 <input
                                                     type="checkbox"
-                                                    name="selectedOptions3-English"
+                                                    name="selectedOptions3-english"
                                                     onChange={handleChange}
-                                                    checked={formData.selectedOptions3.includes('English')}
+                                                    checked={formData.selectedOptions3?.includes('english')}
                                                     className="text-blue-light rounded"
                                                 />
-                                                <span className="text-sm">
-                                                    {language === 'ar' ? 'English' : 'English'}
+                                                <span className="text-sm whitespace-nowrap">
+                                                    {language === 'ar' ? 'لغة انجليزية' : 'English'}
                                                 </span>
                                             </label>
                                         </div>
