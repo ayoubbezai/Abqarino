@@ -14,7 +14,6 @@ const App = () => {
                     <Route path="/" element={<MainPage />} />
                 </Routes>
                 <Footer />
-
             </BrowserRouter>
         </LanguageProvider>
     )
