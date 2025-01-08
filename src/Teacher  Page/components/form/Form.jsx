@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import { LanguageContext } from '../../../../context/LanguageContext';
-import Button from '../../../../components/common/Button';
-import Alert from '../../../../components/common/Alert';
-import { socialLinks } from '../../../../data';
+import { LanguageContext } from '../../../context/LanguageContext';
+import Button from '../../../components/common/Button';
+import Alert from '../../../components/common/Alert';
+import { socialLinks } from '../../../data';
 
 const Form = () => {
     const { language } = useContext(LanguageContext);

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Teacher from "./pages/Teacher  Page/Teacher.jsx";
-import { LanguageProvider } from './context/LanguageContext';
+import Teacher from "./Teacher  Page/Teacher.jsx";
+import { LanguageProvider } from './context/LanguageContext.jsx';
 import MainPage from './MainPage.jsx';
 import ScrollToTop from './components/helpful/ScrollToTop.jsx';
-import PageNotFound from './pages/pageNotFound/PageNotFound.jsx';
+import PageNotFound from './pageNotFound/PageNotFound.jsx';
 
 const App = () => {
     return (

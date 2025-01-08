@@ -1,7 +1,7 @@
 import SectionOne from './components/SectionOne.jsx'
 import Navbar2 from './components/Navbar2.jsx'
 import Form from './components/form/Form.jsx'
-import { Footer } from '../../components/footer/Footer.jsx'
+import { Footer } from '../components/footer/Footer.jsx'
 const Teacher = () => {
 
 

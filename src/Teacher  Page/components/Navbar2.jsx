@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { LanguageContext } from "../../../context/LanguageContext"
+import { LanguageContext } from "../../context/LanguageContext"
 import saFlag from "../../assets/flags/sa.png"
 import ukFlag from "../../assets/flags/gb.png"
 import { Link } from "react-router-dom"
