@@ -3,7 +3,7 @@ import Teacher from "./Teacher  Page/Teacher.jsx";
 import { LanguageProvider } from './context/LanguageContext';
 import MainPage from '../src/MainPage.jsx';
 import ScrollToTop from './components/helpful/ScrollToTop.jsx';
-import PageNotFound from './pageNotFound/PageNotFound.jsx';
+import PageNotFound from './pages/pageNotFound/PageNotFound.jsx';
 
 const App = () => {
     return (

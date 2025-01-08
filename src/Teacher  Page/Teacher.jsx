@@ -1,6 +1,6 @@
 import SectionOne from './components/SectionOne'
 import Navbar2 from './components/Navbar2'
-import Form from './form/Form'
+import Form from '../pages/form/Form.jsx'
 import { Footer } from '../components/footer/Footer.jsx'
 const Teacher = () => {
 
