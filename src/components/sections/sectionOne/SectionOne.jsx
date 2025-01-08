@@ -2,9 +2,11 @@ import { useContext } from "react"
 import { sectionOne } from "../../../data"
 import { LanguageContext } from "../../../context/LanguageContext"
 import sectionOneImage from "../../../assets/sections/image1.jpg"
-import Button from "../../common/Button"
 
 const SectionOne = () => {
+
+    const link = `https://wa.me/966538474025`
+
     const { language } = useContext(LanguageContext)
     return (
         <div id="sectionOne" className="flex flex-col mt-12">
@@ -25,9 +27,9 @@ const SectionOne = () => {
                     </p>
 
                     <div className={`mt-6`}>
-                        <Button className="bg-yellow-bright hover:bg-yellow-500">
+                        <a href={link} target="_blank" className="bg-yellow-bright hover:bg-yellow-500 px-12 py-3 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl text-base text-center text-white">
                             {language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}
-                        </Button>
+                        </a>
                     </div>
                 </div>
             </div>
