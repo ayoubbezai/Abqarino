@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { LanguageContext } from '../../../context/LanguageContext';
 import Button from '../../common/Button';
+import { socialLinks } from '../../../data';
+
 const Form = () => {
 
     const serviceOptions = {
@@ -104,7 +106,7 @@ const Form = () => {
         const formDataToSend = new FormData();
 
         // Add your Web3Forms access key here
-        formDataToSend.append("access_key", "99c5e7f9-c94a-4e59-b83a-7f340a44433d");
+        formDataToSend.append("access_key", socialLinks.gmail);
 
         // Add additional form data
         formDataToSend.append("form type", "student form")
@@ -144,7 +146,7 @@ const Form = () => {
         //google sheet link  
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbz-v6VqNW5pdCvhWfiKLgeH51mCJbWIhRKeZkAzvwux5mvTsNOwcv9FtjGajLow3UJ6/exec", {
+            const response = await fetch(socialLinks.googlesheet1, {
                 method: "POST",
                 body: JSON.stringify(formData)
             })

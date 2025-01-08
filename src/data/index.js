@@ -129,3 +129,14 @@ export const sectionOnePartTwo = {
     en: "Abqarino facilitates learning and provides a way for teachers to reach students easily, all you need to focus on is the quality of the teaching provided.",
   },
 };
+
+export const socialLinks = {
+  instagram:
+    "https://www.instagram.com/genius.sa0/?igsh=c2t1dGQwbmJxNWRo&utm_source=qr",
+  tiktok: "https://www.tiktok.com/@genius.sa0?_t=ZS-8ssQzncw5oq&_r=1",
+  whatsapp: "https://wa.me/+966538474025",
+  gmail: "99c5e7f9-c94a-4e59-b83a-7f340a44433d",
+  googlesheet1:
+    "https://script.google.com/macros/s/AKfycbz-v6VqNW5pdCvhWfiKLgeH51mCJbWIhRKeZkAzvwux5mvTsNOwcv9FtjGajLow3UJ6/exec",
+  googlesheet2: "https://script.google.com/macros/s/AKfycbx4pjklr-UW2KTIeQ4iOJvb1zOlpMLRIczF64t22tB7gDoqZuMswygcydATGVGRoCvP/exec"
+};

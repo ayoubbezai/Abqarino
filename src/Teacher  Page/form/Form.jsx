@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { LanguageContext } from '../../context/LanguageContext';
 import Button from '../../components/common/Button';
+import { socialLinks } from '../../data';
 
 const Form = () => {
     const { language } = useContext(LanguageContext);
@@ -118,7 +119,7 @@ const Form = () => {
         //google sheet link  
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbx4pjklr-UW2KTIeQ4iOJvb1zOlpMLRIczF64t22tB7gDoqZuMswygcydATGVGRoCvP/exec", {
+            const response = await fetch(socialLinks.googlesheet2, {
                 method: "POST",
                 body: JSON.stringify(formData)
             })

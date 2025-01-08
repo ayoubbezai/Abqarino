@@ -2,10 +2,11 @@ import { useContext } from "react"
 import { sectionOne } from "../../../data"
 import { LanguageContext } from "../../../context/LanguageContext"
 import sectionOneImage from "../../../assets/sections/image1.jpg"
+import { socialLinks } from "../../../data"
 
 const SectionOne = () => {
 
-    const link = `https://wa.me/966538474025`
+    const link = socialLinks.whatsapp
 
     const { language } = useContext(LanguageContext)
     return (
@@ -27,7 +28,7 @@ const SectionOne = () => {
                     </p>
 
                     <div className={`mt-6`}>
-                        <a href={link} target="_blank" className="bg-yellow-bright hover:bg-yellow-500 px-12 py-3 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl text-base text-center text-white">
+                        <a href={link} target="_blank" className="bg-yellow-bright hover:bg-yellow-500 px-12 py-3 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl text-sm text-center text-white">
                             {language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}
                         </a>
                     </div>
