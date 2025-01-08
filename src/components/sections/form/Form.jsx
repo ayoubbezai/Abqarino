@@ -29,64 +29,71 @@ const Form = () => {
 
 
     const { language } = useContext(LanguageContext);
-
-    const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        service: "",
-        selectedOptions: []
-    });
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-
-        // Handle checkboxes
-        if (type === 'checkbox') {
-            setFormData((prevData) => ({
-                ...prevData,
-                selectedOptions: checked
-                    ? [...prevData.selectedOptions, value] // Add value if checked
-                    : prevData.selectedOptions.filter((item) => item !== value), // Remove value if unchecked
-            }));
-        } else {
-            // Handle other input types
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
-    };
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     console.log('Form Data:', formData);
-    //     // Add your form submission logic here
-    // };
-
-
-    const [result, setResult] = useState("");
-
-    // Add translations for result messages
-
+    const [result, setResult] = useState('');
     const resultMessages = {
         sending: {
-            ar: "جاري الإرسال...",
-            en: "Sending...."
+            ar: "جاري إرسال النموذج...",
+            en: "Sending form..."
         },
         success: {
             ar: "تم إرسال النموذج بنجاح",
-            en: "Form Submitted Successfully"
+            en: "Form submitted successfully"
         },
         error: {
             ar: "حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى",
             en: "An error occurred while submitting the form. Please try again later."
         }
     };
+
+    const [formData, setFormData] = useState({
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        service: "",
+        selectedOptions1: [],
+        selectedOptions2: [],
+        selectedOptions3: []
+    });
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+
+        if (type === 'checkbox') {
+            const [groupName, optionValue] = name.split('-');
+            setFormData(prevData => {
+                // Get current array or initialize empty array
+                const currentArray = prevData[groupName] || [];
+
+                if (checked) {
+                    // Only add if not already present
+                    if (!currentArray.includes(optionValue)) {
+                        return {
+                            ...prevData,
+                            [groupName]: [...currentArray, optionValue]
+                        };
+                    }
+                } else {
+                    // Remove the value
+                    return {
+                        ...prevData,
+                        [groupName]: currentArray.filter(item => item !== optionValue)
+                    };
+                }
+                // If no changes needed, return previous state
+                return prevData;
+            });
+        } else {
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
+    };
+
+
     useEffect(() => {
         setResult(resultMessages.sending[language]);
     }, [language])
-
     const onSubmit = async (event) => {
         event.preventDefault();
 
@@ -107,7 +114,9 @@ const Form = () => {
         formDataToSend.append("student phone", formData.phoneNumber)
         formDataToSend.append("student email", formData.email)
         formDataToSend.append("student grade", formData.service)
-        formDataToSend.append("student subjects", formData.selectedOptions.join(", "))
+        formDataToSend.append("student goal", formData.selectedOptions1)
+        formDataToSend.append("student curriculum", formData.selectedOptions2)
+        formDataToSend.append("student subjects", formData.selectedOptions3)
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
@@ -137,7 +146,7 @@ const Form = () => {
         //google sheet link  
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxb0EBnhpjX5UvMR_0dO91m2Er4QpUKxU3WLKE7QdfMGr8dv-X48EdBNNz8OgC6mQmS/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbz-v6VqNW5pdCvhWfiKLgeH51mCJbWIhRKeZkAzvwux5mvTsNOwcv9FtjGajLow3UJ6/exec", {
                 method: "POST",
                 body: JSON.stringify(formData)
             })
@@ -154,174 +163,246 @@ const Form = () => {
 
 
     return (
-        <div className="bg-blue-light/5 py-16">
-            <div className="container mx-auto px-4 max-w-5xl">
-                <div className={`flex flex-col md:flex-row justify-between ${language === 'ar' ? 'md:flex-row-reverse' : ''} gap-12 `}>
-                    {/* Info Section */}
-                    <div className="w-full md:w-2/5 space-y-8 p-6 mt-8">
-                        <div className="flex flex-col gap-4 ">
-                            <h1 className={`text-2xl md:text-3xl font-bold text-center text-blue-dark mb-4 `}>
-                                {language === 'ar' ? 'ابدأ رحلتك التعليمية معنا' : 'Start Your Learning Journey'}
-                                {result}
-                            </h1>
-                            <p className={`text-gray-600 leading-relaxed text-base text-center`}>
-                                {language === 'ar'
-                                    ? 'ابدأ رحلتك التعليمية مع معلمك المناسب وصمم خطتك الدراسية حسب احتياجك .سجل بياناتك وسيتم التواصل معك في اقرب وقت'
-                                    : 'Start your learning journey with the right teacher and design your study plan according to your needs. Register your information and we will contact you as soon as possible.'}
-                            </p>
-                        </div>
+        <div className="bg-blue-light/5 py-8">
+            <div className="container mx-auto px-4 max-w-6xl">
+                {/* Title Section */}
+                <div className="text-center mb-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                        {language === 'ar' ? 'سجل الآن' : 'Register Now'}
+                    </h2>
+                    <p className="text-gray-600 w-2/3 mx-auto">
+                        {language === 'ar'
+                            ? 'ابدأ رحلتك التعليمية مع معلمك المناسب وصمم خطتك الدراسية حسب احتياجك .سجل بياناتك وسيتم التواصل معك في اقرب وقت'
+                            : 'Start your educational journey with the right teacher and design your study plan according to your needs. Fill out your details and we will contact you as soon as possible'}
+                    </p>
+                </div>
 
-
-                    </div>
-
-                    {/* Form Section */}
-                    <div className="w-full md:w-3/5 md:max-w-md">
-                        <div className="bg-white rounded-xl shadow-lg p-6">
-                            <form onSubmit={onSubmit} className="space-y-4 ">
-                                <div className="space-y-2 ">
-                                    <label htmlFor="fullName" className="block text-gray-700 text-sm font-medium">
-                                        {language === 'ar' ? 'الاسم الكامل' : 'Full Name'}
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="fullName"
-                                        name="fullName"
-                                        value={formData.fullName}
-                                        onChange={handleChange}
-                                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="phoneNumber" className="block text-gray-700 text-sm font-medium">
-                                        {language === 'ar' ? 'رقم الجوال' : 'Phone Number'}
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        id="phoneNumber"
-                                        name="phoneNumber"
-                                        value={formData.phoneNumber}
-                                        onChange={handleChange}
-                                        pattern="[0-9]{10}"
-                                        placeholder={language === 'ar' ? '05xxxxxxxx' : '05xxxxxxxx'}
-                                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="block text-gray-700 text-sm font-medium">
-                                        {language === 'ar' ? 'البريد الإلكتروني' : 'Email'}
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="service" className="block text-gray-700 text-sm font-medium">
-                                        {language === 'ar' ? 'المستوى الدراسي' : ' Grade'}
-                                        <span className="text-red-500">*</span>
-                                    </label>
-                                    <select
-                                        id="service"
-                                        name="service"
-                                        value={formData.service}
-                                        onChange={handleChange}
-                                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent bg-white"
-                                        required
-                                    >
-                                        <option value="" disabled>
-                                            {serviceOptions[language][0]}
-                                        </option>
-                                        {serviceOptions[language].slice(1).map((option, index) => (
-                                            <option
-                                                key={index + 1}
-                                                value={serviceOptions.name[index + 1]}
-                                            >
-                                                {option}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div className={`space-y-3  text-left `}>
-                                    <label className="block text-gray-700 text-sm font-medium mb-4">
-                                        {language === 'ar' ? 'المادة الدراسية' : 'Subject'}
-                                        <span className="text-red-500">*</span>
-                                    </label>
-                                    <div className="space-y-3 text-sm">
-                                        <div className={`flex items-center gap-2 `}>
-                                            <input
-                                                type="checkbox"
-                                                id="math"
-                                                name="serviceType"
-                                                value="math"
-                                                onChange={handleChange}
-                                                checked={formData.selectedOptions.includes('math')}
-                                                className="w-4 h-4 text-blue-light rounded border-gray-300 focus:ring-blue-light"
-                                                required={formData.selectedOptions.length === 0}
-                                            />
-                                            <label htmlFor="math">
-                                                {language === 'ar' ? '  رياضيات ' : 'Math'}
+                {/* Single container for mobile, split for desktop */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <form onSubmit={onSubmit}>
+                        <div className={`flex flex-col md:flex-row ${language === 'en' ? 'md:flex-row-reverse' : ''}`}>
+                            {/* Left/Right Column - Radio Groups */}
+                            <div className="w-full md:w-1/2">
+                                <div className="p-6 md:border-r border-gray-200 space-y-6">
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                                        {language === 'ar' ? 'اختر المواد' : 'Select Subjects'}
+                                    </h3>
+                                    {/* First Selection Group - Goal */}
+                                    <div className="space-y-4">
+                                        <label className="block text-sm font-medium text-gray-700">
+                                            {language === 'ar' ? 'الهدف' : 'Goal'}
+                                            <span className="text-red-500 ml-1">*</span>
+                                        </label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions1-foundation and strengthening"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions1?.includes('foundation and strengthening')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'تأسيس وتقوية' : 'Foundation and Strengthening'}
+                                                </span>
+                                            </label>
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions1-curriculum follow up"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions1?.includes('curriculum follow up')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'متابعة للمنهج الدراسي' : 'Curriculum Follow-up'}
+                                                </span>
                                             </label>
                                         </div>
-                                        <div className={`flex items-center gap-2 `}>
-                                            <input
-                                                type="checkbox"
-                                                id="arabic"
-                                                name="serviceType"
-                                                value="arabic"
-                                                onChange={handleChange}
-                                                checked={formData.selectedOptions.includes('arabic')}
-                                                className="w-4 h-4 text-blue-light rounded border-gray-300 focus:ring-blue-light"
-                                            />
-                                            <label htmlFor="arabic">
-                                                {language === 'ar' ? 'لغة عربية ' : 'Arabic'}
+                                    </div>
+
+                                    {/* Second Selection Group - Curriculum */}
+                                    <div className="space-y-4">
+                                        <label className="block text-sm font-medium text-gray-700">
+                                            {language === 'ar' ? 'المنهج' : 'Curriculum'}
+                                            <span className="text-red-500 ml-1">*</span>
+                                        </label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions2-Saudi"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions2?.includes('Saudi')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'سعودي' : 'Saudi'}
+                                                </span>
+                                            </label>
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions2-International"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions2.includes('International')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'عالمي' : 'International'}
+                                                </span>
                                             </label>
                                         </div>
-                                        <div className={`flex items-center gap-2 `}>
-                                            <input
-                                                type="checkbox"
-                                                id="english"
-                                                name="serviceType"
-                                                value="english"
-                                                onChange={handleChange}
-                                                checked={formData.selectedOptions.includes('english')}
-                                                className="w-4 h-4 text-blue-light rounded border-gray-300 focus:ring-blue-light"
-                                            />
-                                            <label htmlFor="english">
-                                                {language === 'ar' ? 'لغة انجليزية' : 'English'}
+                                    </div>
+
+                                    {/* Third Selection Group - Subject */}
+                                    <div className="space-y-4">
+                                        <label className="block text-sm font-medium text-gray-700">
+                                            {language === 'ar' ? 'المادة' : 'Subject'}
+                                            <span className="text-red-500 ml-1">*</span>
+                                        </label>
+                                        <div className="grid grid-cols-3 gap-3">
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions3-Math"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions3.includes('Math')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'رياضيات' : 'Mathematics'}
+                                                </span>
+                                            </label>
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions3-Arabic"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions3.includes('Arabic')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'لغة عربية' : 'Arabic Language'}
+                                                </span>
+                                            </label>
+                                            <label className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50">
+                                                <input
+                                                    type="checkbox"
+                                                    name="selectedOptions3-English"
+                                                    onChange={handleChange}
+                                                    checked={formData.selectedOptions3.includes('English')}
+                                                    className="text-blue-light rounded"
+                                                />
+                                                <span className="text-sm">
+                                                    {language === 'ar' ? 'English' : 'English'}
+                                                </span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className={`flex justify-center pt-2`}>
-                                    <Button
-                                        className="bg-blue-light hover:bg-blue-bright/90 text-sm px-10"
-                                        type="submit"
-                                        disabled={!formData.service || formData.selectedOptions.length === 0}
-                                    >
-                                        {language === 'ar' ? 'إرسال' : 'Submit'}
+                            {/* Right/Left Column - Form Fields */}
+                            <div className="w-full md:w-1/2">
+                                <div className="p-6 border-t md:border-t-0 md:border-l border-gray-200">
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-6">
+                                        {language === 'ar' ? 'المعلومات الشخصية' : 'Personal Information'}
+                                    </h3>
+                                    <div className="space-y-6">
+                                        <div className="space-y-4">
+                                            <label className="block text-sm font-medium text-gray-700">
+                                                {language === 'ar' ? 'معلومات الاتصال' : 'Contact Details'}
+                                            </label>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="space-y-2">
+                                                    <label htmlFor="fullName" className="block text-sm text-gray-600">
+                                                        {language === 'ar' ? 'الاسم الكامل' : 'Full Name'}
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="fullName"
+                                                        name="fullName"
+                                                        value={formData.fullName}
+                                                        onChange={handleChange}
+                                                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label htmlFor="phoneNumber" className="block text-sm text-gray-600">
+                                                        {language === 'ar' ? 'رقم الجوال' : 'Phone Number'}
+                                                        <span className="text-red-500 ml-1">*</span>
+                                                    </label>
+                                                    <input
+                                                        type="tel"
+                                                        id="phoneNumber"
+                                                        name="phoneNumber"
+                                                        value={formData.phoneNumber}
+                                                        onChange={handleChange}
+                                                        placeholder={language === 'ar' ? '05xxxxxxxx' : '05xxxxxxxx'}
+                                                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
+                                                        pattern="05[0-9]{8}"
+                                                        maxLength="10"
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    </Button>
+                                        <div className="space-y-2">
+                                            <label htmlFor="email" className="block text-sm text-gray-600">
+                                                {language === 'ar' ? 'البريد اللكتروني' : 'Email'}
+                                            </label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                onChange={handleChange}
+                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label htmlFor="service" className="block text-sm text-gray-600">
+                                                {language === 'ar' ? 'الصف الدراسي' : 'Grade Level'}
+                                            </label>
+                                            <select
+                                                id="service"
+                                                name="service"
+                                                value={formData.service}
+                                                onChange={handleChange}
+                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent bg-white"
+                                                required
+                                            >
+                                                <option value="">{serviceOptions[language][0]}</option>
+                                                {serviceOptions[language].slice(1).map((option, index) => (
+                                                    <option key={index + 1} value={serviceOptions.name[index + 1]}>
+                                                        {option}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+                        {/* Submit Button */}
+                        <div className="flex justify-center p-6">
+                            <Button
+                                type="submit"
+                                className="bg-blue-light hover:bg-blue-bright/90 text-sm px-10"
+                            >
+                                {language === 'ar' ? 'إرسال' : 'Submit'}
+                            </Button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     );
-};
+}
 
 export default Form;

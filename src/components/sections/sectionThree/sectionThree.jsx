@@ -3,8 +3,10 @@ import { sectionThree } from "../../../data"
 import { LanguageContext } from "../../../context/LanguageContext"
 import sectionThreeImage from "../../../assets/sections/image3.jpg"
 import Button from "../../common/Button"
+import { useNavigate } from "react-router-dom"
 
 const SectionThree = () => {
+    const navigate = useNavigate()
     const { language } = useContext(LanguageContext)
     return (
         <div className="flex flex-col my-24">
@@ -30,8 +32,10 @@ const SectionThree = () => {
                         ))}
                     </ul>
                     <div className={`mt-6`}>
-                        <Button className="bg-blue-light hover:bg-blue-bright/90">
-                            {language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}
+                        <Button
+                            onClick={() => navigate('/teacher')}
+                            className="bg-blue-light hover:bg-blue-bright/90">
+                            {language === 'ar' ? 'انضم الينا' : 'Join Us'}
                         </Button>
                     </div>
 

@@ -119,3 +119,16 @@ export const sectionThree = {
     ],
   },
 };
+
+
+
+export const sectionOnePartTwo = {
+  title: {
+    ar: "انضم كمعلم في عبقرينو",
+    en: "Join us as a private teacher",
+  },
+  description: {
+    ar: "تقوم عبقرينو بتسهيل التعليم وتوفير السبل لوصول المعلم إلى الطالب بكل سهولة وكل ماعليك هو التركيز في جودة التدريس المقدمة .",
+    en: "Abqarino facilitates learning and provides a way for teachers to reach students easily, all you need to focus on is the quality of the teaching provided.",
+  },
+};
