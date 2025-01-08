@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import { sectionOnePartTwo } from "../../data"
-import { LanguageContext } from "../../context/LanguageContext"
+import { sectionOnePartTwo } from "../../../data"
+import { LanguageContext } from "../../../context/LanguageContext"
 import sectionOneImage from "../../assets/logo/logo2.png"
 
 const SectionOne = () => {

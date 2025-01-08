@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Teacher from "./Teacher  Page/Teacher.jsx";
+import Teacher from "./pages/Teacher  Page/Teacher.jsx";
 import { LanguageProvider } from './context/LanguageContext';
 import MainPage from '../src/MainPage.jsx';
 import ScrollToTop from './components/helpful/ScrollToTop.jsx';
