@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { LanguageContext } from '../context/LanguageContext'
 import { useContext } from 'react'
-
+import Hero from './components/Hero'
 const Teacher = () => {
     const { language } = useContext(LanguageContext)
     return (
@@ -9,6 +9,7 @@ const Teacher = () => {
             <Link to="/"
                 className="bg-blue-light text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-bright"
             > {language === 'ar' ? 'العودة الى الرئيسية' : 'Return to Home'}</Link>
+            <Hero />
         </div>
 
     )

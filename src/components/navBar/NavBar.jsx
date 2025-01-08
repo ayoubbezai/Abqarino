@@ -91,7 +91,7 @@ const NavBar = () => {
                             )}
                         </div>
                         <Link
-                            to="/plans"
+                            to="/teacher"
                             className="bg-blue-light text-white px-4 py-2 rounded-md text-sm font-medium
                                          hover:bg-blue-bright transition-colors duration-200">
                             {language === 'ar' ? 'اختر خطة' : 'Choose a plan'}
