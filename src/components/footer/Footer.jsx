@@ -15,7 +15,7 @@ export const Footer = () => {
                         </h1>
                         <div className="flex flex-col gap-2 items-center justify-center">
                             <p className='text-center text-sm'>
-                                {language === 'ar' ? 'عبقرينو منصة سعودية مرخصة' : 'Abqarinno Saudi platform licensed'}
+                                {language === 'ar' ? 'عبقرينو منصة سعودية مسجلة' : 'Abqarinno Saudi platform registered'}
                             </p>
                             <p className='text-center text-sm'>
                                 {language === 'ar' ? '(1009152474) بموجب السجل التجاري' : 'by the commercial register (1009152474)'}
