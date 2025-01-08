@@ -6,6 +6,7 @@ const Form = () => {
     const { language } = useContext(LanguageContext);
     const [formData, setFormData] = useState({
         fullName: "",
+        email: "",
         phoneNumber: "",
         specialization: "",
         qualification: "",
@@ -45,20 +46,99 @@ const Form = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const [result, setResult] = useState("");
+    const resultMessages = {
+        sending: {
+            ar: "جاري الإرسال...",
+            en: "Sending..."
+        },
+        success: {
+            ar: "تم الإرسال بنجاح",
+            en: "Sent successfully"
+        },
+        error: {
+            ar: "حدث خطأ أثناء الإرسال",
+            en: "An error occurred during sending"
+        }
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+
+        setResult(resultMessages.sending[language]);
+        // gmail link 
+
+        const formDataToSend = new FormData();
+
+        // Add your Web3Forms access key here
+        formDataToSend.append("access_key", "99c5e7f9-c94a-4e59-b83a-7f340a44433d");
+
+        // Add additional form data
+        formDataToSend.append("form type", "teacher form")
+        formDataToSend.append("teacher full name", formData.fullName)
+        formDataToSend.append("teacher phone", formData.phoneNumber)
+        formDataToSend.append("teacher email", formData.email)
+        formDataToSend.append("teacher specialization", formData.specialization)
+        formDataToSend.append("teacher qualification", formData.qualification)
+        formDataToSend.append("teacher has teaching experience", formData.hasTeachingExperience)
+        if (formData.hasTeachingExperience === "yes") {
+            formDataToSend.append("teacher years of experience", formData.yearsOfExperience)
+        }
+        formDataToSend.append("teacher nationality", formData.nationality)
+        formDataToSend.append("teacher residence", formData.residence)
+        formDataToSend.append("teacher has computer", formData.hasComputer)
+        formDataToSend.append("teacher currently employed", formData.currentlyEmployed)
+        formDataToSend.append("teacher teaching preferences", formData.teachingPreferences)
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formDataToSend
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setResult(resultMessages.success[language]);
+                // Reset form
+                // setFormData({
+                //     fullName: "",
+                //     email: "",
+                //     phoneNumber: "",
+                //     service: "",
+                //     selectedOptions: []
+                // });
+            } else {
+                setResult(resultMessages.error[language]);
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setResult(resultMessages.error[language]);
+        }
+        //google sheet link  
+
+        try {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbx4pjklr-UW2KTIeQ4iOJvb1zOlpMLRIczF64t22tB7gDoqZuMswygcydATGVGRoCvP/exec", {
+                method: "POST",
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
     };
 
     return (
         <div className="max-w-6xl mx-auto p-4">
-            <div className="bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-50  to-blue-50 rounded-xl shadow-lg overflow-hidden">
                 <form onSubmit={handleSubmit} className="p-8">
                     {/* Form Title */}
                     <h2 className={`text-2xl font-bold text-blue-dark mb-8 text-center`}>
                         {language === 'ar' ? 'انضم الآن' : 'Join Now'}
                     </h2>
-                    <p className='text-center text-base  w-2/3 mx-auto text-gray-800'>{language === 'ar' ? 'كسب دخل إضافي مريح و جداول عمل مرنة ، مكافآت مالية ، بيئة آمنة ، سهولة الاستخدام ، توفير عدد كبير من الطلاب ، درِّس في أي مكان وزمان.' : 'Earn comfortable additional income with flexible work schedules, financial rewards, safe environment, ease of use, large number of students, teach anywhere and anytime.'}</p>
+                    <p className='text-center text-base  w-2/3 mx-auto text-gray-800 mb-8'>{language === 'ar' ? 'كسب دخل إضافي مريح و جداول عمل مرنة ، مكافآت مالية ، بيئة آمنة ، سهولة الاستخدام ، توفير عدد كبير من الطلاب ، درِّس في أي مكان وزمان.' : 'Earn comfortable additional income with flexible work schedules, financial rewards, safe environment, ease of use, large number of students, teach anywhere and anytime.'}</p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Left Column */}
@@ -78,6 +158,23 @@ const Form = () => {
                                     id="fullName"
                                     name="fullName"
                                     value={formData.fullName}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg"
+                                    required
+                                />
+                            </div>
+
+                            {/* Email */}
+                            <div className="space-y-2">
+                                <label htmlFor="email" className="block text-sm text-gray-600">
+                                    {language === 'ar' ? 'البريد الالكتروني' : 'Email'}
+                                    <span className="text-red-500 ml-1">*</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg"
                                     required
@@ -285,7 +382,7 @@ const Form = () => {
                     <div className="flex justify-center mt-8">
                         <Button
                             type="submit"
-                            className="bg-blue-light hover:bg-blue-bright/90 text-sm px-12 py-3 rounded-lg transition-colors duration-200"
+                            className="bg-blue-light hover:bg-blue-bright/90 text-sm px-1- py-3 rounded-lg transition-colors duration-200"
                         >
                             {language === 'ar' ? 'إرسال' : 'Submit'}
                         </Button>

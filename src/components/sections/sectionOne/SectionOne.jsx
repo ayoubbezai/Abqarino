@@ -7,7 +7,7 @@ import Button from "../../common/Button"
 const SectionOne = () => {
     const { language } = useContext(LanguageContext)
     return (
-        <div className="flex flex-col mt-12">
+        <div id="sectionOne" className="flex flex-col mt-12">
             <div className={`md:flex ${language === "en" && "flex-row-reverse"} justify-evenly`}>
                 <div className="flex justify-center">
                     <img

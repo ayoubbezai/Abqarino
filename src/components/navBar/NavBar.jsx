@@ -7,8 +7,8 @@ import saFlag from "../../assets/flags/sa.png"
 
 
 const NavBar = () => {
-    
-    
+
+
     const { language, setLanguage } = useContext(LanguageContext)
     const [isOpen, setIsOpen] = useState(false)
 
@@ -29,7 +29,7 @@ const NavBar = () => {
                     {/* Navigation Links */}
                     <div className={`hidden lg:flex ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'} gap-6 items-center`}>
                         <Link
-                            to="/"
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
 
@@ -37,6 +37,7 @@ const NavBar = () => {
                         </Link>
 
                         <Link
+                            onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
                             {language === 'ar' ? 'خدماتنا' : 'Our Services'}
@@ -44,13 +45,15 @@ const NavBar = () => {
 
 
                         <Link
+                            onClick={() => window.scrollTo({ top: 1300, behavior: 'smooth' })}
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
 
                             {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
                         </Link>
                         <Link
-                            className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                            onClick={() => window.scrollTo({ top: 2400, behavior: 'smooth' })}
+                                className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
                             {language === 'ar' ? 'من نحن' : 'About Us'}
                         </Link>

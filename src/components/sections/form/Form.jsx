@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { LanguageContext } from '../../../context/LanguageContext';
 import Button from '../../common/Button';
 const Form = () => {
@@ -91,9 +91,7 @@ const Form = () => {
     };
 
 
-    useEffect(() => {
-        setResult(resultMessages.sending[language]);
-    }, [language])
+ 
     const onSubmit = async (event) => {
         event.preventDefault();
 
