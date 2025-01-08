@@ -4,6 +4,7 @@ import { LanguageContext } from "../../context/LanguageContext"
 import logo from "../../assets/logo.png"
 import ukFlag from "../../assets/flags/gb.png"
 import saFlag from "../../assets/flags/sa.png"
+import { useEffect } from "react"
 
 
 const NavBar = () => {
@@ -16,6 +17,15 @@ const NavBar = () => {
         setLanguage(lang)
         setIsOpen(false)
     }
+    useEffect(() => {
+        if (language === 'ar') {
+            window.title = 'عبقرينو'
+        } else {
+            window.title = 'Abqarino'
+        }
+    }, [language])
+
+
 
     return (
         <nav className="bg-blue-dark shadow-md shadow-blue-dark/30 sticky top-0 z-50">
@@ -53,7 +63,7 @@ const NavBar = () => {
                         </Link>
                         <Link
                             onClick={() => window.scrollTo({ top: 2400, behavior: 'smooth' })}
-                                className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                            className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
                             {language === 'ar' ? 'من نحن' : 'About Us'}
                         </Link>
