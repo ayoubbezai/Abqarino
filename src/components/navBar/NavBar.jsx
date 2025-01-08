@@ -5,7 +5,10 @@ import logo from "../../assets/logo.png"
 import ukFlag from "../../assets/flags/gb.png"
 import saFlag from "../../assets/flags/sa.png"
 
+
 const NavBar = () => {
+    
+    
     const { language, setLanguage } = useContext(LanguageContext)
     const [isOpen, setIsOpen] = useState(false)
 
@@ -24,31 +27,34 @@ const NavBar = () => {
                     </div>
 
                     {/* Navigation Links */}
-                    <div className={`hidden md:flex ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'} gap-6 items-center`}>
+                    <div className={`hidden lg:flex ${language === 'ar' ? 'flex-row-reverse' : 'flex-row'} gap-6 items-center`}>
                         <Link
                             to="/"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                            onClick={() => scrollToSection('home')}
                         >
+
                             {language === 'ar' ? 'الرئيسية' : 'Home'}
                         </Link>
-                        
+
                         <Link
-                            to="/services"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                            onClick={() => scrollToSection('services')}
                         >
                             {language === 'ar' ? 'خدماتنا' : 'Our Services'}
                         </Link>
 
 
                         <Link
-                            to="/contact"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                            onClick={() => scrollToSection('contact')}
                         >
+
                             {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
                         </Link>
                         <Link
-                            to="/about"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                            onClick={() => scrollToSection('about')}
                         >
                             {language === 'ar' ? 'من نحن' : 'About Us'}
                         </Link>
