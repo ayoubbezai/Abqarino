@@ -5,6 +5,7 @@ import SectionTwo from './components/sections/sectionTwo/sectionTwo.jsx'
 import SectionThree from './components/sections/sectionThree/sectionThree.jsx'
 import NavBar from './components/navBar/NavBar.jsx'
 import Form from './components/sections/form/Form.jsx'
+import { Footer } from './components/footer/Footer.jsx'
 const MainPage = () => {
     return (
         <>
@@ -15,6 +16,8 @@ const MainPage = () => {
             <Form />
             <SectionThree />
             <Accordion />
+            <Footer />
+
 
         </>
     )
