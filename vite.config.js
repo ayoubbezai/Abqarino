@@ -8,10 +8,4 @@ export default defineConfig({
     postcss: "./postcss.config.js",
   },
   base: "/",
-  server: {
-    historyApiFallback: true, // Ensures proper fallback for SPA routing
-  },
-  build: {
-    outDir: "dist", // Directory for production build
-  },
 });
