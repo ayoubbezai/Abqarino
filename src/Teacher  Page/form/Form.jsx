@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { LanguageContext } from '../../context/LanguageContext';
 import Button from '../../components/common/Button';
+import Alert from '../../components/common/Alert';
 import { socialLinks } from '../../data';
 
 const Form = () => {
@@ -47,49 +48,52 @@ const Form = () => {
         }));
     };
 
-    const [result, setResult] = useState("");
+    const [alert, setAlert] = useState({ show: false, type: '', message: '' });
+
     const resultMessages = {
         sending: {
-            ar: "جاري الإرسال...",
-            en: "Sending..."
+            ar: "جاري�رسال النموذج...",
+            en: "Sending form..."
         },
         success: {
-            ar: "تم الإرسال بنجاح",
-            en: "Sent successfully"
+            ar: "تم إرسال النموذج بنجاح",
+            en: "Form submitted successfully"
         },
         error: {
-            ar: "حدث خطأ أثناء الإرسال",
-            en: "An error occurred during sending"
+            ar: "حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى",
+            en: "An error occurred while submitting the form. Please try again later."
         }
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setResult(resultMessages.sending[language]);
-        // gmail link 
+        setAlert({
+            show: true,
+            type: 'info',
+            message: resultMessages.sending[language]
+        });
 
         const formDataToSend = new FormData();
-
-        // Add your Web3Forms access key here
         formDataToSend.append("access_key", "99c5e7f9-c94a-4e59-b83a-7f340a44433d");
 
-        // Add additional form data
-        formDataToSend.append("form type", "teacher form")
-        formDataToSend.append("teacher full name", formData.fullName)
-        formDataToSend.append("teacher phone", formData.phoneNumber)
-        formDataToSend.append("teacher email", formData.email)
-        formDataToSend.append("teacher specialization", formData.specialization)
-        formDataToSend.append("teacher qualification", formData.qualification)
-        formDataToSend.append("teacher has teaching experience", formData.hasTeachingExperience)
+        formDataToSend.append("form type", "teacher form");
+        formDataToSend.append("teacher full name", formData.fullName);
+        formDataToSend.append("teacher phone", formData.phoneNumber);
+        formDataToSend.append("teacher email", formData.email);
+        formDataToSend.append("teacher specialization", formData.specialization);
+        formDataToSend.append("teacher qualification", formData.qualification);
+        formDataToSend.append("teacher has teaching experience", formData.hasTeachingExperience);
         if (formData.hasTeachingExperience === "yes") {
-            formDataToSend.append("teacher years of experience", formData.yearsOfExperience)
+            if (formData.yearsOfExperience) {
+                formDataToSend.append("teacher years of experience", formData.yearsOfExperience);
+            }
         }
-        formDataToSend.append("teacher nationality", formData.nationality)
-        formDataToSend.append("teacher residence", formData.residence)
-        formDataToSend.append("teacher has computer", formData.hasComputer)
-        formDataToSend.append("teacher currently employed", formData.currentlyEmployed)
-        formDataToSend.append("teacher teaching preferences", formData.teachingPreferences)
+        formDataToSend.append("teacher nationality", formData.nationality);
+        formDataToSend.append("teacher residence", formData.residence);
+        formDataToSend.append("teacher has computer", formData.hasComputer);
+        formDataToSend.append("teacher currently employed", formData.currentlyEmployed);
+        formDataToSend.append("teacher teaching preferences", formData.teachingPreferences);
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
@@ -100,40 +104,62 @@ const Form = () => {
             const data = await response.json();
 
             if (data.success) {
-                setResult(resultMessages.success[language]);
-                // Reset form
-                // setFormData({
-                //     fullName: "",
-                //     email: "",
-                //     phoneNumber: "",
-                //     service: "",
-                //     selectedOptions: []
-                // });
+                setAlert({
+                    show: true,
+                    type: 'success',
+                    message: resultMessages.success[language]
+                });
+
+                // Reset all form fields including radio buttons
+                setFormData({
+                    fullName: "",
+                    email: "",
+                    phoneNumber: "",
+                    specialization: "",
+                    qualification: "",
+                    hasTeachingExperience: "",  // Clear radio
+                    yearsOfExperience: "",
+                    nationality: "",
+                    residence: "",
+                    hasComputer: "",            // Clear radio
+                    currentlyEmployed: "",       // Clear radio
+                    teachingPreferences: ""
+                });
+
+                // Reset all radio buttons
+                const radioInputs = document.querySelectorAll('input[type="radio"]');
+                radioInputs.forEach(input => {
+                    input.checked = false;
+                });
+
+                // Reset the form element itself
+                e.target.reset();
+
             } else {
-                setResult(resultMessages.error[language]);
+                throw new Error('Form submission failed');
             }
         } catch (error) {
             console.error("Error submitting form:", error);
-            setResult(resultMessages.error[language]);
+            setAlert({
+                show: true,
+                type: 'error',
+                message: resultMessages.error[language]
+            });
         }
-        //google sheet link  
 
         try {
-            const response = await fetch(socialLinks.googlesheet2, {
+            await fetch(socialLinks.googlesheet2, {
                 method: "POST",
                 body: JSON.stringify(formData)
-            })
-
-            const data = await response.json();
-            console.log(data);
+            });
         } catch (error) {
-            console.error("Error submitting form:", error);
+            console.error("Error submitting to Google Sheet:", error);
         }
     };
 
     return (
         <div className="max-w-6xl mx-auto p-4">
-            <div className="bg-gradient-to-r from-blue-50  to-blue-50 rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-50 to-blue-50 rounded-xl shadow-lg overflow-hidden">
                 <form onSubmit={handleSubmit} className="p-8">
                     {/* Form Title */}
                     <h2 className={`text-2xl font-bold text-blue-dark mb-8 text-center`}>
@@ -194,9 +220,9 @@ const Form = () => {
                                     name="phoneNumber"
                                     value={formData.phoneNumber}
                                     onChange={handleChange}
-                                    placeholder="05xxxxxxxx"
+                                    placeholder="0xxxxxxxxx"
                                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg"
-                                    maxLength="10"
+                                    maxLength="14"
                                     required
                                 />
                             </div>
@@ -390,6 +416,13 @@ const Form = () => {
                     </div>
                 </form>
             </div>
+            {alert.show && (
+                <Alert
+                    type={alert.type}
+                    message={alert.message}
+                    onClose={() => setAlert({ ...alert, show: false })}
+                />
+            )}
         </div>
     );
 };

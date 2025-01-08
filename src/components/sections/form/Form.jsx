@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { LanguageContext } from '../../../context/LanguageContext';
 import Button from '../../common/Button';
+import Alert from '../../common/Alert';
 import { socialLinks } from '../../../data';
 
 const Form = () => {
@@ -31,7 +32,7 @@ const Form = () => {
 
 
     const { language } = useContext(LanguageContext);
-    const [result, setResult] = useState('');
+    const [alert, setAlert] = useState({ show: false, type: '', message: '' });
     const resultMessages = {
         sending: {
             ar: "جاري إرسال النموذج...",
@@ -93,14 +94,18 @@ const Form = () => {
     };
 
 
- 
+
     const onSubmit = async (event) => {
         event.preventDefault();
 
 
 
 
-        setResult(resultMessages.sending[language]);
+        setAlert({
+            show: true,
+            type: 'info',
+            message: resultMessages.sending[language]
+        });
         // gmail link 
 
         const formDataToSend = new FormData();
@@ -127,21 +132,34 @@ const Form = () => {
             const data = await response.json();
 
             if (data.success) {
-                setResult(resultMessages.success[language]);
-                // Reset form
-                // setFormData({
-                //     fullName: "",
-                //     email: "",
-                //     phoneNumber: "",
-                //     service: "",
-                //     selectedOptions: []
-                // });
+                setAlert({
+                    show: true,
+                    type: 'success',
+                    message: resultMessages.success[language]
+                });
+                setFormData({
+                    fullName: "",
+                    email: "",
+                    phoneNumber: "",
+                    service: "",
+                    selectedOptions1: [],
+                    selectedOptions2: [],
+                    selectedOptions3: []
+                });
             } else {
-                setResult(data.message);
+                setAlert({
+                    show: true,
+                    type: 'error',
+                    message: resultMessages.error[language]
+                });
             }
         } catch (error) {
             console.error("Error submitting form:", error);
-            setResult(resultMessages.error[language]);
+            setAlert({
+                show: true,
+                type: 'error',
+                message: resultMessages.error[language]
+            });
         }
         //google sheet link  
 
@@ -155,7 +173,11 @@ const Form = () => {
             console.log(data);
         } catch (error) {
             console.error("Error submitting form:", error);
-            setResult(resultMessages.error[language]);
+            setAlert({
+                show: true,
+                type: 'error',
+                message: resultMessages.error[language]
+            });
         }
     };
 
@@ -164,22 +186,22 @@ const Form = () => {
 
         // Check required text fields
         if (!formData.fullName.trim()) {
-            alert(language === 'ar' ? 'الرجاء�دخال الاسم الكامل' : 'Please enter your full name');
+            alert(language === 'ar' ? 'الرجاءادخال الاسم الكامل' : 'Please enter your full name');
             return;
         }
 
         if (!formData.email.trim()) {
-            alert(language === 'ar' ? 'الرجاء�دخال البريد الإلكتروني' : 'Please enter your email');
+            alert(language === 'ar' ? 'الرجاء ادخال البريد الإلكتروني' : 'Please enter your email');
             return;
         }
 
         if (!formData.phoneNumber.trim()) {
-            alert(language === 'ar' ? 'الرجاء�دخال رقم الجوال' : 'Please enter your phone number');
+            alert(language === 'ar' ? 'الرجاء دخال رقم الجوال' : 'Please enter your phone number');
             return;
         }
 
         if (!formData.service) {
-            alert(language === 'ar' ? 'الرجاء اختيار ال�ف الدراسي' : 'Please select your grade');
+            alert(language === 'ar' ? 'الرجاء اختيار الهدف الدراسي' : 'Please select your grade');
             return;
         }
 
@@ -203,8 +225,19 @@ const Form = () => {
         onSubmit(e);
     };
 
-
-
+    // Add validation function
+    const isFormValid = () => {
+        return (
+            formData.fullName.trim() !== "" &&
+            formData.email.trim() !== "" &&
+            formData.phoneNumber.length >= 6 &&
+            formData.service !== "" &&
+            // Add checkbox group validations
+            formData.selectedOptions1.length > 0 && // Goal
+            formData.selectedOptions2.length > 0 && // Curriculum
+            formData.selectedOptions3.length > 0    // Subjects
+        );
+    };
 
     return (
         <div className="bg-blue-light/5 py-8">
@@ -357,11 +390,13 @@ const Form = () => {
                                     <div className="space-y-6">
                                         <div className="space-y-4">
                                             <label className="block text-sm font-medium text-gray-700">
+                                                <span className="text-red-500 ml-1">*</span>
                                                 {language === 'ar' ? 'معلومات الاتصال' : 'Contact Details'}
                                             </label>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="space-y-2">
                                                     <label htmlFor="fullName" className="block text-sm text-gray-600">
+                                                        <span className="text-red-500 ml-1">*</span>
                                                         {language === 'ar' ? 'الاسم الكامل' : 'Full Name'}
                                                     </label>
                                                     <input
@@ -376,20 +411,20 @@ const Form = () => {
                                                 </div>
                                                 <div className="space-y-2">
                                                     <label htmlFor="phoneNumber" className="block text-sm text-gray-600">
-                                                        {language === 'ar' ? 'رقم الجوال' : 'Phone Number'}
                                                         <span className="text-red-500 ml-1">*</span>
+                                                        {language === 'ar' ? 'رقم الجوال' : 'Phone Number'}
                                                     </label>
                                                     <input
                                                         type="tel"
                                                         id="phoneNumber"
                                                         name="phoneNumber"
+
                                                         value={formData.phoneNumber}
                                                         onChange={handleChange}
                                                         placeholder={language === 'ar' ? '05xxxxxxxx' : '05xxxxxxxx'}
                                                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-light focus:border-transparent"
-                                                        pattern="05[0-9]{8}"
-                                                        maxLength="10"
                                                         required
+                                                        maxLength="14"
                                                     />
                                                 </div>
                                             </div>
@@ -397,7 +432,8 @@ const Form = () => {
 
                                         <div className="space-y-2">
                                             <label htmlFor="email" className="block text-sm text-gray-600">
-                                                {language === 'ar' ? 'البريد اللكتروني' : 'Email'}
+                                                <span className="text-red-500 ml-1">*</span>
+                                                {language === 'ar' ? 'البريد الاكتروني' : 'Email'}
                                             </label>
                                             <input
                                                 type="email"
@@ -411,6 +447,7 @@ const Form = () => {
 
                                         <div className="space-y-2">
                                             <label htmlFor="service" className="block text-sm text-gray-600">
+                                                <span className="text-red-500 ml-1">*</span>
                                                 {language === 'ar' ? 'الصف الدراسي' : 'Grade Level'}
                                             </label>
                                             <select
@@ -438,7 +475,10 @@ const Form = () => {
                         <div className="flex justify-center p-6">
                             <Button
                                 type="submit"
-                                className="bg-blue-light hover:bg-blue-bright/90 text-sm px-10"
+                                disabled={!isFormValid()}
+                                className={`text-sm px-10 ${!isFormValid() 
+                                    ? 'bg-gray-300 cursor-not-allowed' 
+                                    : 'bg-blue-light hover:bg-blue-bright/90'}`}
                             >
                                 {language === 'ar' ? 'إرسال' : 'Submit'}
                             </Button>
@@ -446,6 +486,13 @@ const Form = () => {
                     </form>
                 </div>
             </div>
+            {alert.show && (
+                <Alert
+                    type={alert.type}
+                    message={alert.message}
+                    onClose={() => setAlert({ ...alert, show: false })}
+                />
+            )}
         </div>
     );
 }
