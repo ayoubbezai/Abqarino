@@ -414,6 +414,7 @@ const Form = () => {
                             {language === 'ar' ? 'إرسال' : 'Submit'}
                         </Button>
                     </div>
+                    <p className='text-center text-sm text-gray-500 mt-4'>{language === 'ar' ? 'ملاحظة : الرجاء تجهيز ملف تعريف عن نفسك يتضمن ( سنوات الخبرة و نبذة عن مجال خبرتك واهتماماتك و مواد التدريس والصفوف والمنهج الدراسي )' : 'Note: Please prepare a profile of yourself containing (years of experience, a description of your field of expertise, your interests, teaching subjects, classes, and the educational curriculum)'}</p>
                 </form>
             </div>
             {alert.show && (

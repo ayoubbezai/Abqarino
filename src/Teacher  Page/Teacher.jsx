@@ -6,7 +6,7 @@ const Teacher = () => {
 
 
     return (
-        <div className="mt-4 ml-4">
+        <div className="mt-4 ml-4 overflow-x-hidden">
             <Navbar2 />
             <SectionOne />
             <Form />
