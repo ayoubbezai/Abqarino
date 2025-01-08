@@ -31,23 +31,26 @@ const NavBar = () => {
                         >
                             {language === 'ar' ? 'الرئيسية' : 'Home'}
                         </Link>
+                        
                         <Link
-                            to="/about"
+                            to="/services"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
-                            {language === 'ar' ? 'الخطط' : 'Plans'}
+                            {language === 'ar' ? 'خدماتنا' : 'Our Services'}
                         </Link>
-                        <Link
-                            to="/about-us"
-                            className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                        >
-                            {language === 'ar' ? 'تعرف علينا' : 'About Us'}
-                        </Link>
+
+
                         <Link
                             to="/contact"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
                         >
                             {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+                        </Link>
+                        <Link
+                            to="/about"
+                            className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                        >
+                            {language === 'ar' ? 'من نحن' : 'About Us'}
                         </Link>
                     </div>
 

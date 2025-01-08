@@ -1,21 +1,22 @@
 import { BrowserRouter } from 'react-router-dom'
 import NavBar from "./components/navBar/NavBar.jsx"
 import { Routes, Route } from 'react-router-dom'
-import Page2 from "./components/Page2/App.jsx"
+import Teacher from "./Teacher  Page/Teacher.jsx"
 import { LanguageProvider } from './context/LanguageContext'
+import MainPage from '../src/MainPage.jsx'
 import { Footer } from './components/footer/Footer.jsx'
 
 const App = () => {
     return (
         <LanguageProvider>
             <BrowserRouter>
-                <NavBar  />
-                <div  className='h-[60vh]'>
+                <NavBar />
                 <Routes>
-                    <Route path="/plans" element={<Page2 />} />
+                    <Route path="/teacher" element={<Teacher />} />
+                    <Route path="/" element={<MainPage />} />
                 </Routes>
-                </div>
                 <Footer />
+
             </BrowserRouter>
         </LanguageProvider>
     )

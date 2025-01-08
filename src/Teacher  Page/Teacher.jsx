@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { LanguageContext } from '../../context/LanguageContext'
+import { LanguageContext } from '../context/LanguageContext'
 import { useContext } from 'react'
 
-const App = () => {
+const Teacher = () => {
     const { language } = useContext(LanguageContext)
     return (
         <div className="mt-4 ml-4">
@@ -14,4 +14,4 @@ const App = () => {
     )
 }
 
-export default App
+export default Teacher

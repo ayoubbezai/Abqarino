@@ -1,6 +1,7 @@
 import { FaFacebook, FaTwitter, FaTelegram, FaYoutube } from 'react-icons/fa'
 import { useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageContext'
+import { footer } from '../../data/index'
 
 export const Footer = () => {
     const { language } = useContext(LanguageContext);
@@ -11,8 +12,8 @@ export const Footer = () => {
                     <div>
                         <h1 className="text-base font-bold text-center text-blue-light mb-4"> {`${language === 'ar' ? 'تواصل معنا' : 'Contact Us'} `}</h1>
                         <div className="flex flex-col gap-2 items-center justify-center">
-                            <h2 className="text-sm rtl"> {`${language === 'ar' ? 'العنوان :الجزائر حي 50 مسكن ' : 'Address: Algeria, 50 Msken, Street'} `}</h2>
-                            <h2 className="text-sm rtl"> {`${language === 'ar' ? 'الهاتف: 0599999999' : 'Phone: 0599999999'} `}</h2>
+                            <h2 className="text-sm rtl"> {`${language === 'ar' ? 'العنوان: ' + footer.address.ar : 'Address: ' + footer.address.en} `}</h2>
+                            <h2 className="text-sm rtl"> {`${language === 'ar' ? 'الهاتف: ' + footer.phone : 'Phone: ' + footer.phone} `}</h2>
                             <h2 className="text-sm rtl"> {`${language === 'ar' ? '  info@example.com :البريد الإلكتروني' : 'Email: info@example.com'} `}</h2>
                         </div>
                     </div>
