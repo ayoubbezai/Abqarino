@@ -159,6 +159,29 @@ const Form = () => {
         }
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Check if at least one option is selected in each group
+        if (formData.selectedOptions1.length === 0) {
+            alert(language === 'ar' ? 'الرجاء اختيار الهدف' : 'Please select a goal');
+            return;
+        }
+
+        if (formData.selectedOptions2.length === 0) {
+            alert(language === 'ar' ? 'الرجاء اختيار المنهج' : 'Please select a curriculum');
+            return;
+        }
+
+        if (formData.selectedOptions3.length === 0) {
+            alert(language === 'ar' ? 'الرجاء اختيار المادة' : 'Please select a subject');
+            return;
+        }
+
+        // If all validations pass, proceed with form submission
+        onSubmit(e);
+    };
+
 
 
 
@@ -179,7 +202,7 @@ const Form = () => {
 
                 {/* Single container for mobile, split for desktop */}
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <div className={`flex flex-col md:flex-row ${language === 'en' ? 'md:flex-row-reverse' : ''}`}>
                             {/* Left/Right Column - Radio Groups */}
                             <div className="w-full md:w-1/2">
