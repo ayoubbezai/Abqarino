@@ -34,7 +34,7 @@ export const Footer = () => {
                     </div>
                 </div>
             </div>
-            <h3 className='text-center text-sm text-gray-400  bottom-3 left-0 right-0 mt-8 mb-6 md:mb-0'> {`${language === 'ar' ? '© 2024 جميع الحقوق محفوظة' : '© 2024 All rights reserved'} `}</h3>
+            <h3 className='text-center text-sm text-gray-400  bottom-3 left-0 right-0 mt-8 mb-6 md:mb-0'> {`${language === 'ar' ? 'مسجلة في  وزارة التجارة' : 'Licensed by the  Ministry of Commerce'} `}</h3>
         </div>
     )
 }

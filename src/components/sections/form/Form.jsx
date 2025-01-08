@@ -100,8 +100,8 @@ const Form = () => {
 
 
 
-        // gmail link 
         setResult(resultMessages.sending[language]);
+        // gmail link 
 
         const formDataToSend = new FormData();
 

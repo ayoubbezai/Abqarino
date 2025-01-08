@@ -14,8 +14,8 @@ export const accordion = [
       en: "What is Abqarino platform?",
     },
     content: {
-      ar: "منصة تعليمية سعودية مرخصة من وزارة التجارة , تهدف على ربط أولياء الأمور والطلاب بمعلمين خصوصيين ذو كفاءات عالية لرفع المستوى التعليمي ، سواء عبر الحصص المباشرة او الحصص الحضورية بجودة تعليم ممتازة",
-      en: "A Saudi educational platform licensed by the Ministry of Commerce, aims to link parents and students with private teachers of high efficiency to raise the educational level, whether through direct classes or attendance classes with excellent educational quality",
+      ar: "منصة تعليمية سعودية , تهدف على ربط أولياء الأمور والطلاب بمعلمين خصوصيين ذو كفاءات عالية لرفع المستوى التعليمي ، سواء عبر الحصص المباشرة او الحصص الحضورية بجودة تعليم ممتازة",
+      en: "A Saudi educational platform , aims to link parents and students with private teachers of high efficiency to raise the educational level, whether through direct classes or attendance classes with excellent educational quality",
     },
   },
   {
@@ -62,8 +62,8 @@ export const hero = {
     en: "Who is Abqarino?",
   },
   description2: {
-    ar: "منصة تعليمية سعودية مرخصة من وزارة التجارة , تهدف على ربط أولياء الأمور والطلاب بمعلمين خصوصيين ذو كفاءات عالية لرفع المستوى التعليمي ، سواء عبر الحصص المباشرة او الحصص الحضورية بجودة تعليم ممتازة",
-    en: "An educational platform licensed by the Ministry of Commerce, aims to link parents and students with private teachers of high efficiency to raise the educational level, whether through direct classes or attendance classes with excellent educational quality",
+    ar: "منصة تعليمية سعودية  , تهدف على ربط أولياء الأمور والطلاب بمعلمين خصوصيين ذو كفاءات عالية لرفع المستوى التعليمي ، سواء عبر الحصص المباشرة او الحصص الحضورية بجودة تعليم ممتازة",
+    en: "An educational platform , aims to link parents and students with private teachers of high efficiency to raise the educational level, whether through direct classes or attendance classes with excellent educational quality",
   },
 };
 export const sectionOne = {
@@ -98,7 +98,6 @@ export const sectionTwo = {
   },
 };
 
-
 export const sectionThree = {
   title: {
     ar: "انضم معنا كمعلم خصوصي ",
@@ -119,8 +118,6 @@ export const sectionThree = {
     ],
   },
 };
-
-
 
 export const sectionOnePartTwo = {
   title: {
