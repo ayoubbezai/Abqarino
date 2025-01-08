@@ -1,9 +1,6 @@
 import { FaFacebook, FaTwitter, FaTelegram, FaYoutube } from 'react-icons/fa'
 import { useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageContext'
-import { footer } from '../../data/index'
-
-import image2 from "../../assets/logo/logo2.png"
 export const Footer = () => {
     const { language } = useContext(LanguageContext);
     return (

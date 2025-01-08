@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { LanguageContext } from '../../../context/LanguageContext';
 import Button from '../../common/Button';
-import React from 'react';
 const Form = () => {
 
     const serviceOptions = {
@@ -66,7 +65,7 @@ const Form = () => {
     // };
 
 
-    const [result, setResult] = React.useState("");
+    const [result, setResult] = useState("");
 
     // Add translations for result messages
 
@@ -163,6 +162,7 @@ const Form = () => {
                         <div className="flex flex-col gap-4 ">
                             <h1 className={`text-2xl md:text-3xl font-bold text-center text-blue-dark mb-4 `}>
                                 {language === 'ar' ? 'ابدأ رحلتك التعليمية معنا' : 'Start Your Learning Journey'}
+                                {result}
                             </h1>
                             <p className={`text-gray-600 leading-relaxed text-base text-center`}>
                                 {language === 'ar'

@@ -31,7 +31,6 @@ const NavBar = () => {
                         <Link
                             to="/"
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                            onClick={() => scrollToSection('home')}
                         >
 
                             {language === 'ar' ? 'الرئيسية' : 'Home'}
@@ -39,7 +38,6 @@ const NavBar = () => {
 
                         <Link
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                            onClick={() => scrollToSection('services')}
                         >
                             {language === 'ar' ? 'خدماتنا' : 'Our Services'}
                         </Link>
@@ -47,14 +45,12 @@ const NavBar = () => {
 
                         <Link
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                            onClick={() => scrollToSection('contact')}
                         >
 
                             {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
                         </Link>
                         <Link
                             className="text-white hover:text-blue-light px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                            onClick={() => scrollToSection('about')}
                         >
                             {language === 'ar' ? 'من نحن' : 'About Us'}
                         </Link>
