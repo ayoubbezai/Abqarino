@@ -203,7 +203,8 @@ const Form = () => {
                 {/* Single container for mobile, split for desktop */}
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                     <form onSubmit={handleSubmit}>
-                        <div className={`flex flex-col md:flex-row ${language === 'en' ? 'md:flex-row-reverse' : ''}`}>
+                        <div className={`flex flex-col-reverse
+                             md:flex-row ${language === 'en' ? 'md:flex-row-reverse' : ''}`}>
                             {/* Left/Right Column - Radio Groups */}
                             <div className="w-full md:w-1/2">
                                 <div className="p-6 md:border-r border-gray-200 space-y-6">
