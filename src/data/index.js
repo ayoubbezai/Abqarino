@@ -1,12 +1,3 @@
-export const footer = {
-  address: {
-    ar: "الجزائر حي 50 مسكن",
-    en: "Algeria, 50 Msken, Street",
-  },
-  phone: "0599999999",
-  email: "info@example.com",
-};
-
 export const accordion = [
   {
     title: {
@@ -135,8 +126,9 @@ export const socialLinks = {
     "https://www.instagram.com/genius.sa0/?igsh=c2t1dGQwbmJxNWRo&utm_source=qr",
   tiktok: "https://www.tiktok.com/@genius.sa0?_t=ZS-8ssQzncw5oq&_r=1",
   whatsapp: "https://wa.me/+966538474025",
-  gmail: "99c5e7f9-c94a-4e59-b83a-7f340a44433d",
+  gmail: "174c6d76-2b4e-4173-a07e-95f2309d3746",
   googlesheet1:
-    "https://script.google.com/macros/s/AKfycbz-v6VqNW5pdCvhWfiKLgeH51mCJbWIhRKeZkAzvwux5mvTsNOwcv9FtjGajLow3UJ6/exec",
-  googlesheet2: "https://script.google.com/macros/s/AKfycbx4pjklr-UW2KTIeQ4iOJvb1zOlpMLRIczF64t22tB7gDoqZuMswygcydATGVGRoCvP/exec"
+    "https://script.google.com/macros/s/AKfycbzjYXhRwGNQFIEb4vzF32j8ujUQv8FbNZPn_pGBK2PcCY1HPMT0alSheEHNxsyFK41p/exec",
+  googlesheet2:
+    "https://script.google.com/macros/s/AKfycbyzTFdDqAmjJOIerGadUzJ0_3ctsnLdUSqUEGki-EqWsOLkS_djqKqX2Lja2Ccm0oROTw/exec ",
 };
