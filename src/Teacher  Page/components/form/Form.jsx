@@ -75,7 +75,7 @@ const Form = () => {
         });
 
         const formDataToSend = new FormData();
-        formDataToSend.append("access_key", "99c5e7f9-c94a-4e59-b83a-7f340a44433d");
+        formDataToSend.append("access_key", socialLinks.gmail);
 
         formDataToSend.append("form type", "teacher form");
         formDataToSend.append("teacher full name", formData.fullName);

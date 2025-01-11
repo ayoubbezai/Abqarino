@@ -3,7 +3,6 @@ import { LanguageContext } from '../../../context/LanguageContext';
 import Button from '../../common/Button';
 import Alert from '../../common/Alert';
 import { socialLinks } from '../../../data';
-import { useEffect } from 'react';
 
 const Form = () => {
 
