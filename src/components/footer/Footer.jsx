@@ -1,7 +1,9 @@
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa'
 import { useContext } from 'react'
 import { LanguageContext } from '../../context/LanguageContext'
+import { Link } from 'react-router-dom'
 import { socialLinks } from '../../data'
+
 
 export const Footer = () => {
     const { language } = useContext(LanguageContext);
@@ -26,13 +28,21 @@ export const Footer = () => {
                         </div>
                     </div>
                     <div className={`flex flex-col gap-2 items-center justify-center ${language === 'ar' ? 'md:ml-14' : 'md:ml-24'} mt-10 md:mt-0`}>
-                        <h1 className="text-base font-bold text-center text-blue-light mb-4">
+                        <h1 className="text-base font-bold text-center text-blue-light mb-4 ml-8">
                             {language === 'ar' ? 'روابط مهمة' : 'Important Links'}
                         </h1>
-                        <div className="flex flex-col gap-2 items-center justify-center">
-                            <h2 className="text-sm">{language === 'ar' ? 'الاستفسارات' : 'Questions'}</h2>
-                            <h2 className="text-sm">{language === 'ar' ? 'الاسئلة الشائعة' : 'Frequently Asked Questions'}</h2>
-                            <h2 className="text-sm">{language === 'ar' ? 'الشروط والأحكام' : 'Terms and Conditions'}</h2>
+                        <div className="flex flex-col gap-2 items-center justify-center ml-8">
+                            <Link
+                                onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
+                                className="text-sm text-white transition-colors duration-200"
+                            >{language === 'ar' ? 'الاستفسارات' : 'Questions'}</Link>
+                            <Link
+                                onClick={() => window.scrollTo({ top: 2400, behavior: 'smooth' })}
+                                className='text-sm text-white transition-colors duration-200'
+                            >{language === 'ar' ? 'الاسئلة الشائعة' : 'Frequently Asked Questions'}</Link>
+                            <Link
+                                className='text-sm text-white transition-colors duration-200'
+                            >{language === 'ar' ? 'الشروط والأحكام' : 'Terms and Conditions'}</Link>
                         </div>
                     </div>
                     <div className='mt-10 md:mt-0 mb-10'>
