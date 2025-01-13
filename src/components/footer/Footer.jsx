@@ -17,7 +17,7 @@ export const Footer = () => {
                         <h1 className="text-lg font-bold text-blue-light mb-6 ">
                             {language === 'ar' ? ' من نحن' : 'Who We Are'}
                         </h1>
-                        <p className="text-sm leading-6 text-white/90 rtl mt-2">
+                        <p className="text-sm leading-6 text-white/90 rtl mt-6">
                             {language === 'ar' ? ' عبقرينو منصة سعودية مسجلة' : ' Abqarino is a Saudi  platform registered'}
                         </p>
                         <p className="text-sm mt-2 leading-8 text-white/90 rtl">
