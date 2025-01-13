@@ -10,38 +10,33 @@ export const Footer = () => {
     return (
         <div className="bg-blue-dark text-white py-10">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`flex flex-col ${language === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-start gap-16`}>
+                <div className={`flex flex-col ${language === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-start gap-20`}>
 
                     {/* Contact Section */}
                     <div className="flex-1 text-center md:text-center">
-                        <h1 className="text-lg font-bold text-blue-light mb-4 ">
+                        <h1 className="text-lg font-bold text-blue-light mb-6 ">
                             {language === 'ar' ? ' من نحن' : 'Who We Are'}
                         </h1>
-                        <p className="text-sm leading-6 text-white/90">
-                            {language === 'ar' ? 'عبقرينو هي منصة الكترونية سعودية تختص بمساعدة الطلاب في الدروس وحل الواجبات والاستعداد للاختبارات عن طريق دروس خصوصية بجودة عالية , وربط الطلاب مع معلمين معتمدين وذو كفاءة عالية باستخدام وسائل التقنية الحديثة .' : 'Abqarino is a Saudi electronic platform specializing in helping students with lessons, homework, and test preparation through high-quality private lessons, connecting students with certified and highly skilled teachers using modern technology.'}
+                        <p className="text-sm leading-6 text-white/90 rtl">
+                            {language === 'ar' ? ' عبقرينو منصة سعودية مسجلة' : ' Abqarino is a Saudi  platform registered'}
+                        </p>
+                        <p className="text-sm mt-2 leading-8 text-white/90 rtl">
+                            {language === 'ar' ? '   (1009152474) بموجب السجل التجاري' : '  under the Commercial Register (1009152474)'}
                         </p>
                     </div>
 
                     {/* Important Links Section */}
                     <div className="flex-1 text-center md:text-center">
-                        <h1 className="text-lg font-bold text-blue-light mb-6">
+                        <h1 className="text-lg font-bold text-blue-light mb-4">
                             {language === 'ar' ? 'روابط مهمة' : 'Important Links'}
                         </h1>
-                        <ul className="space-y-4">
+                        <ul className="space-y-3">
                             <li>
                                 <Link
-                                    onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
+                                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                                     className="text-sm text-white/90     hover:text-blue-bright transition duration-200"
                                 >
-                                    {language === 'ar' ? 'الاستفسارات' : 'Questions'}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    onClick={() => window.scrollTo({ top: 2400, behavior: 'smooth' })}
-                                    className="text-sm text-white/90 hover:text-blue-bright transition duration-200"
-                                >
-                                    {language === 'ar' ? 'الاسئلة الشائعة' : 'Frequently Asked Questions'}
+                                    {language === 'ar' ? 'من نحن' : 'Who We Are'}
                                 </Link>
                             </li>
                             <li>
@@ -53,6 +48,15 @@ export const Footer = () => {
                                     {language === 'ar' ? 'الشروط والأحكام' : 'Terms and Conditions'}
                                 </a>
                             </li>
+                            <li className="">
+                                <div className={`flex ${language === 'ar' ? '' : 'flex-row-reverse'} items-center justify-center gap-3 text-white/90 hover:text-[#25D366] transition duration-200`}>
+
+                                    <span className="text-sm">{socialLinks.whatsappnumber}</span>
+                                    <p className="text-sm">{language === 'ar' ? 'عبر الواتساب ' : 'Via Whatsapp'}</p>
+                                    <FaWhatsapp size={20} />
+
+                                </div>
+                            </li>
                         </ul>
                     </div>
 
@@ -61,7 +65,7 @@ export const Footer = () => {
                         <h1 className="text-lg font-bold text-blue-light mb-6">
                             {language === 'ar' ? 'تابعنا' : 'Follow Us'}
                         </h1>
-                        <div className="flex flex-col space-y-6 justify-center items-center mt-4 ">
+                        <div className="flex flex-col space-y-4 justify-center items-center mt-4 ">
                             <a
                                 href={socialLinks.instagram}
                                 target="_blank"
