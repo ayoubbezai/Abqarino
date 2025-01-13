@@ -10,7 +10,7 @@ export const Footer = () => {
     return (
         <div className="bg-blue-dark text-white py-10">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`flex flex-col ${language === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-start gap-20`}>
+                <div className={`flex flex-col ${language === 'ar' ? 'md:flex-row-reverse' : 'md:flex-row'} justify-between items-center gap-20`}>
 
                     {/* Contact Section */}
                     <div className="flex-1 text-center md:text-center">
