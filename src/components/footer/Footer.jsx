@@ -52,7 +52,7 @@ export const Footer = () => {
                                 <div className={`flex ${language === 'ar' ? '' : 'flex-row-reverse'} items-center justify-center gap-3 text-white/90 hover:text-[#25D366] transition duration-200`}>
 
                                     <span className="text-sm">{socialLinks.whatsappnumber}</span>
-                                    <p className="text-sm">{language === 'ar' ? 'عبر الواتساب ' : 'Via Whatsapp'}</p>
+                                    <p className="text-sm">{language === 'ar' ? 'تواصل معنا عبر الواتساب ' : 'Via Whatsapp'}</p>
                                     <FaWhatsapp size={20} />
 
                                 </div>
